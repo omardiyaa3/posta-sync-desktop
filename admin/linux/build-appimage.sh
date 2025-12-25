@@ -7,9 +7,11 @@
 set -xe
 
 # Posta Sync Branding - WorldPosta
+# Note: EXECUTABLE_NAME must match what CMake builds (nextcloud)
+# APPNAME is used for the final output filename
 export APPNAME=${APPNAME:-PostaSync}
-export EXECUTABLE_NAME=${EXECUTABLE_NAME:-postasync}
-export APPLICATION_ICON=${APPLICATION_ICON:-PostaSync}
+export EXECUTABLE_NAME=${EXECUTABLE_NAME:-nextcloud}
+export APPLICATION_ICON=${APPLICATION_ICON:-Nextcloud}
 export BUILD_UPDATER=${BUILD_UPDATER:-OFF}
 export BUILDNR=${BUILDNR:-0000}
 export DESKTOP_CLIENT_ROOT=${DESKTOP_CLIENT_ROOT:-/home/user}
