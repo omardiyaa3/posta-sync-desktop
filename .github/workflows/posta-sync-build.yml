@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: 2024 WorldPosta
 # SPDX-License-Identifier: GPL-2.0-or-later
 
-name: Posta Sync Build (All Platforms)
+name: PostaSync Build v2 - Fixed Runners
 
 on:
   push:
