@@ -30,16 +30,21 @@ env:
 
 jobs:
   #############################################
-  # macOS Build (Universal - arm64 + x86_64)
+  # macOS Build (arm64 on Apple Silicon, x86_64 on Intel)
   #############################################
   build-macos:
-    name: macOS Build
-    runs-on: macos-14
+    name: macOS Build (${{ matrix.arch }})
+    runs-on: ${{ matrix.arch == 'arm64' && 'macos-14' || 'macos-13' }}
     strategy:
       matrix:
         arch: [arm64, x86_64]
+        include:
+          - arch: arm64
+            craft_target: macos-clang-arm64
+          - arch: x86_64
+            craft_target: macos-64-clang
     env:
-      CRAFT_TARGET: ${{ matrix.arch == 'arm64' && 'macos-clang-arm64' || 'macos-64-clang' }}
+      CRAFT_TARGET: ${{ matrix.craft_target }}
       CRAFT_MASTER_LOCATION: ${{ github.workspace }}/CraftMaster
       CRAFT_MASTER_CONFIG: ${{ github.workspace }}/craftmaster.ini
 
@@ -219,7 +224,6 @@ jobs:
           VERSION_SUFFIX=${GITHUB_REF_NAME} \
           BUILD_UPDATER=ON \
           DESKTOP_CLIENT_ROOT=$(pwd) \
-          EXECUTABLE_NAME=postasync \
           QT_BASE_DIR=/opt/qt \
           OPENSSL_ROOT_DIR=/usr/local/lib64 \
           /bin/bash -c "./admin/linux/build-appimage.sh"
