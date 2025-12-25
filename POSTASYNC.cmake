@@ -12,7 +12,7 @@ set( APPLICATION_ICON_NAME  "PostaSync" )
 set( APPLICATION_CONFIG_NAME "${APPLICATION_EXECUTABLE}" )
 set( APPLICATION_DOMAIN     "worldposta.com" )
 set( APPLICATION_VENDOR     "WorldPosta" )
-set( APPLICATION_UPDATE_URL "" CACHE STRING "URL for updater" )
+set( APPLICATION_UPDATE_URL "https://updates.nextcloud.org/client/" CACHE STRING "URL for updater" )
 set( APPLICATION_HELP_URL   "https://worldposta.com/help" CACHE STRING "URL for the help menu" )
 
 set( APPLICATION_ICON_SET   "SVG" )
