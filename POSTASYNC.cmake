@@ -19,7 +19,7 @@ set( APPLICATION_ICON_SET   "SVG" )
 set( APPLICATION_SERVER_URL "" CACHE STRING "URL for the server to use. If entered, the UI field will be pre-filled with it" )
 set( APPLICATION_SERVER_URL_ENFORCE OFF ) # Allow users to enter their own server
 set( APPLICATION_REV_DOMAIN "com.worldposta.postasync" )
-set( DEVELOPMENT_TEAM "" CACHE STRING "Apple Development Team ID for code signing" )
+set( DEVELOPMENT_TEAM "NKUJUXUJ3B" CACHE STRING "Apple Development Team ID for code signing" )
 set( APPLICATION_VIRTUALFILE_SUFFIX "postasync" CACHE STRING "Virtual file suffix (not including the .)")
 set( APPLICATION_OCSP_STAPLING_ENABLED OFF )
 set( APPLICATION_FORBID_BAD_SSL OFF )
