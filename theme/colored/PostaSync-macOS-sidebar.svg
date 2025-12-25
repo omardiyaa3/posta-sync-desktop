@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Posta Sync macOS Sidebar Icon -->
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 18 18" width="18" height="18">
+    <!-- Simple cloud outline for sidebar -->
+    <path d="M 14,10 C 14,8 12.5,6.5 10.5,6.5 C 10.4,6.5 10.3,6.5 10.2,6.52 C 9.7,5.3 8.5,4.5 7,4.5 C 5,4.5 3.5,6 3.5,8 C 3.5,8.1 3.5,8.2 3.52,8.3 C 2.4,8.5 1.5,9.5 1.5,10.7 C 1.5,12.1 2.6,13.2 4,13.2 L 13,13.2 C 14.4,13.2 15.5,12.1 15.5,10.7 C 15.5,9.7 14.9,8.8 14,10 Z" style="fill:#679a41;fill-opacity:1;" />
+</svg>

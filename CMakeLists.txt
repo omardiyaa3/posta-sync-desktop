@@ -28,7 +28,8 @@ endif()
 
 set(BIN_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
 
-include(${CMAKE_SOURCE_DIR}/NEXTCLOUD.cmake)
+# WorldPosta Posta Sync Branding
+include(${CMAKE_SOURCE_DIR}/POSTASYNC.cmake)
 
 set(QT_VERSION_MAJOR "6")
 set(REQUIRED_QT_VERSION "6.8.0")

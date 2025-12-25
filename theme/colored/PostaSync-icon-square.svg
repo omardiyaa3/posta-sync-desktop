@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Posta Sync Square Icon - WorldPosta Branding -->
+<svg
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.1"
+   viewBox="0 0 150 150"
+   width="150"
+   height="150">
+    <defs>
+        <linearGradient id="wpGradientSquare" x1="0%" y1="100%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#679a41;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#8bc34a;stop-opacity:1" />
+        </linearGradient>
+    </defs>
+    <!-- Background Square with rounded corners -->
+    <rect x="5" y="5" width="140" height="140" rx="25" ry="25"
+          style="fill:url(#wpGradientSquare);" />
+    <!-- Cloud with WP -->
+    <g transform="translate(75,75) scale(0.5) translate(-75,-75)">
+        <path
+           d="M 120,85 C 120,71 109,60 95,60 C 94,60 93,60 92,60.2 C 88,50 78,43 66,43 C 50,43 37,56 37,72 C 37,73 37,74 37.2,75 C 28,77 22,85 22,94 C 22,105 31,114 42,114 L 110,114 C 121,114 130,105 130,94 C 130,86 125,79 120,85 Z"
+           style="fill:#ffffff;" />
+        <text x="50" y="95" style="font-family:sans-serif;font-weight:bold;font-size:28px;fill:#293c51;">W</text>
+        <text x="78" y="95" style="font-family:sans-serif;font-weight:bold;font-size:28px;fill:#679a41;">P</text>
+        <path
+           d="M 45,100 L 55,100 L 62,88 L 70,108 L 78,95 L 88,95 L 95,100 L 108,100"
+           style="fill:none;stroke:#679a41;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;" />
+    </g>
+</svg>

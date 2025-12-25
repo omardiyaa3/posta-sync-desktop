@@ -1,18 +1,22 @@
 #! /bin/bash
 
 # SPDX-FileCopyrightText: 2017 Nextcloud GmbH and Nextcloud contributors
+# SPDX-FileCopyrightText: 2024 WorldPosta
 # SPDX-License-Identifier: GPL-2.0-or-later
 
 set -xe
 
-export APPNAME=${APPNAME:-Nextcloud}
-export EXECUTABLE_NAME=${EXECUTABLE_NAME:-nextcloud}
+# Posta Sync Branding - WorldPosta
+export APPNAME=${APPNAME:-PostaSync}
+export EXECUTABLE_NAME=${EXECUTABLE_NAME:-postasync}
+export APPLICATION_ICON=${APPLICATION_ICON:-PostaSync}
 export BUILD_UPDATER=${BUILD_UPDATER:-OFF}
 export BUILDNR=${BUILDNR:-0000}
 export DESKTOP_CLIENT_ROOT=${DESKTOP_CLIENT_ROOT:-/home/user}
 export QT_BASE_DIR=${QT_BASE_DIR:-/usr}
 export OPENSSL_ROOT_DIR=${OPENSSL_ROOT_DIR:-/usr/lib/x86_64-linux-gnu}
 export VERSION_SUFFIX=${VERSION_SUFFIX:stable}
+export OEM_THEME_DIR=${OEM_THEME_DIR:-}
 
 # Set defaults
 export SUFFIX=${PR_ID:=${DRONE_PULL_REQUEST:=master}}
@@ -33,6 +37,13 @@ mkdir /app
 # Build client
 mkdir build-client
 cd build-client
+
+# Use custom OEM theme if specified, otherwise use POSTASYNC.cmake
+OEM_CMAKE_ARGS=""
+if [ -n "$OEM_THEME_DIR" ]; then
+    OEM_CMAKE_ARGS="-DOEM_THEME_DIR=${OEM_THEME_DIR}"
+fi
+
 cmake \
     -G Ninja \
     -DCMAKE_PREFIX_PATH=${QT_BASE_DIR} \
@@ -43,6 +54,7 @@ cmake \
     -DMIRALL_VERSION_BUILD=$BUILDNR \
     -DMIRALL_VERSION_SUFFIX="$VERSION_SUFFIX" \
     -DCMAKE_UNITY_BUILD=ON \
+    ${OEM_CMAKE_ARGS} \
     ${DESKTOP_CLIENT_ROOT}
 cmake --build . --target all
 DESTDIR=/app cmake --install .
@@ -74,8 +86,19 @@ mv usr/share/${EXECUTABLE_NAME} AppDir/usr/share/${EXECUTABLE_NAME}
 mv /app/etc/*/sync-exclude.lst usr/bin/
 rm -rf etc
 
-# com.nextcloud.desktopclient.nextcloud.desktop
+# Find desktop file
 DESKTOP_FILE=$(ls /app/usr/share/applications/*.desktop)
+
+# Find icon - try PostaSync first, fallback to Nextcloud
+ICON_FILE=""
+if [ -f "usr/share/icons/hicolor/512x512/apps/${APPLICATION_ICON}.png" ]; then
+    ICON_FILE="usr/share/icons/hicolor/512x512/apps/${APPLICATION_ICON}.png"
+elif [ -f "usr/share/icons/hicolor/512x512/apps/Nextcloud.png" ]; then
+    ICON_FILE="usr/share/icons/hicolor/512x512/apps/Nextcloud.png"
+else
+    # Find any available icon
+    ICON_FILE=$(find usr/share/icons -name "*.png" -size +10k | head -1)
+fi
 
 # Use linuxdeploy to deploy
 export APPIMAGE_NAME=linuxdeploy-x86_64.AppImage
@@ -86,7 +109,7 @@ rm ./${APPIMAGE_NAME}
 cp -r ./squashfs-root ./linuxdeploy-squashfs-root
 
 export LD_LIBRARY_PATH=/app/usr/lib64:/app/usr/lib:${QT_BASE_DIR}/lib:/usr/local/lib/x86_64-linux-gnu:/usr/local/lib:/usr/local/lib64
-./linuxdeploy-squashfs-root/AppRun --desktop-file=${DESKTOP_FILE} --icon-file=usr/share/icons/hicolor/512x512/apps/Nextcloud.png --executable=usr/bin/${EXECUTABLE_NAME} --appdir=AppDir
+./linuxdeploy-squashfs-root/AppRun --desktop-file=${DESKTOP_FILE} --icon-file=${ICON_FILE} --executable=usr/bin/${EXECUTABLE_NAME} --appdir=AppDir
 
 # Use linuxdeploy-plugin-qt to deploy qt dependencies
 export APPIMAGE_NAME=linuxdeploy-plugin-qt-x86_64.AppImage
@@ -100,7 +123,7 @@ export PATH=${QT_BASE_DIR}/bin:${PATH}
 export QML_SOURCES_PATHS=${DESKTOP_CLIENT_ROOT}/src/gui
 ./linuxdeploy-plugin-qt-squashfs-root/AppRun --appdir=AppDir
 
-./linuxdeploy-squashfs-root/AppRun --desktop-file=${DESKTOP_FILE} --library=/usr/lib64/libsoftokn3.so --icon-file=usr/share/icons/hicolor/512x512/apps/Nextcloud.png --executable=usr/bin/${EXECUTABLE_NAME} --appdir=AppDir --output appimage
+./linuxdeploy-squashfs-root/AppRun --desktop-file=${DESKTOP_FILE} --library=/usr/lib64/libsoftokn3.so --icon-file=${ICON_FILE} --executable=usr/bin/${EXECUTABLE_NAME} --appdir=AppDir --output appimage
 
 # Workaround issue #103 and #7231
 export APPIMAGETOOL=appimagetool-x86_64.AppImage
@@ -121,9 +144,9 @@ LD_LIBRARY_PATH="$PWD/appimagetool-squashfs-root/usr/lib":$LD_LIBRARY_PATH PATH=
 export COMMIT=${GITHUB_SHA:=${DRONE_COMMIT}}
 if [ ! -z "$COMMIT" ]
 then
-    export APPIMAGE_NAME="${EXECUTABLE_NAME}-${SUFFIX}-${COMMIT}-x86_64.AppImage"
+    export APPIMAGE_NAME="${APPNAME}-${SUFFIX}-${COMMIT}-x86_64.AppImage"
 else
-    export APPIMAGE_NAME="${EXECUTABLE_NAME}-${SUFFIX}-x86_64.AppImage"
+    export APPIMAGE_NAME="${APPNAME}-${SUFFIX}-x86_64.AppImage"
 fi
 mv *.AppImage ${DESKTOP_CLIENT_ROOT}/$APPIMAGE_NAME
 

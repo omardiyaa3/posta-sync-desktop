@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Posta Sync Icon - WorldPosta Branding -->
+<svg
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   version="1.1"
+   id="PostaSyncIcon"
+   x="0px"
+   y="0px"
+   viewBox="0 0 150 150"
+   width="160"
+   height="160">
+    <defs>
+        <linearGradient
+           id="worldpostaGradient"
+           gradientUnits="userSpaceOnUse"
+           x1="18"
+           y1="150"
+           x2="150"
+           y2="0"
+           gradientTransform="matrix(0.93,0,0,0.93,75,75)">
+            <stop
+               style="stop-color:#679a41;stop-opacity:1;"
+               offset="0" />
+            <stop
+               style="stop-color:#8bc34a;stop-opacity:1"
+               offset="1" />
+        </linearGradient>
+    </defs>
+    <!-- Background Circle -->
+    <circle
+       r="74"
+       cy="75"
+       cx="75"
+       style="fill:url(#worldpostaGradient);fill-opacity:1;" />
+    <!-- Cloud Shape with WP -->
+    <g transform="translate(75,75) scale(0.55) translate(-75,-75)">
+        <!-- Cloud outline -->
+        <path
+           d="M 120,85 C 120,71 109,60 95,60 C 94,60 93,60 92,60.2 C 88,50 78,43 66,43 C 50,43 37,56 37,72 C 37,73 37,74 37.2,75 C 28,77 22,85 22,94 C 22,105 31,114 42,114 L 110,114 C 121,114 130,105 130,94 C 130,86 125,79 120,85 Z"
+           style="fill:#ffffff;fill-opacity:1;" />
+        <!-- W letter -->
+        <text x="50" y="95" style="font-family:sans-serif;font-weight:bold;font-size:28px;fill:#293c51;">W</text>
+        <!-- P letter -->
+        <text x="78" y="95" style="font-family:sans-serif;font-weight:bold;font-size:28px;fill:#679a41;">P</text>
+        <!-- Pulse/check line -->
+        <path
+           d="M 45,100 L 55,100 L 62,88 L 70,108 L 78,95 L 88,95 L 95,100 L 108,100"
+           style="fill:none;stroke:#679a41;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;" />
+    </g>
+</svg>
